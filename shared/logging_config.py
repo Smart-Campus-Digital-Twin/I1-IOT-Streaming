@@ -3,6 +3,14 @@ import logging
 import sys
 from datetime import datetime, timezone
 
+# Standard LogRecord attributes — everything else is caller-supplied extra fields.
+_STDLIB_FIELDS = frozenset({
+    "args", "created", "exc_info", "exc_text", "filename", "funcName",
+    "levelname", "levelno", "lineno", "message", "module", "msecs", "msg",
+    "name", "pathname", "process", "processName", "relativeCreated",
+    "stack_info", "taskName", "thread", "threadName",
+})
+
 
 class _JsonFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
@@ -16,9 +24,11 @@ class _JsonFormatter(logging.Formatter):
         }
         if record.exc_info:
             doc["exception"] = self.formatException(record.exc_info)
-        extra = getattr(record, "extra", {})
-        if extra:
-            doc.update(extra)
+        # Extra fields passed via logger.info(..., extra={...}) land as top-level
+        # attributes on the LogRecord — not under a nested "extra" key.
+        for key, val in record.__dict__.items():
+            if key not in _STDLIB_FIELDS and not key.startswith("_"):
+                doc[key] = val
         return json.dumps(doc)
 
 

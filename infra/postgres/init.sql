@@ -70,8 +70,58 @@ CREATE INDEX IF NOT EXISTS idx_sensors_building       ON sensors(building_id);
 
 -- Seed campus topology
 INSERT INTO buildings VALUES
-    ('building-a', 'Academic Block A', '1 University Ave', 3, NOW()),
-    ('building-b', 'Administrative Block B', '2 University Ave', 3, NOW()),
+    ('building-a', 'Academic Block A',              '1 University Ave', 3, NOW()),
+    ('building-b', 'Administrative Block B',        '2 University Ave', 3, NOW()),
     ('building-c', 'Research & Facilities Block C', '3 University Ave', 2, NOW()),
-    ('building-d', 'Student Canteen', '4 University Ave', 1, NOW())
+    ('building-d', 'Student Canteen',               '4 University Ave', 1, NOW())
+ON CONFLICT DO NOTHING;
+
+-- Seed rooms (mirrors simulator/campus/topology.py — keep in sync)
+INSERT INTO rooms (room_id, building_id, floor, room_type, capacity) VALUES
+    -- Building A: Academic Block (3 floors × 6 rooms)
+    ('building-a-f1-r01','building-a',1,'classroom',40),
+    ('building-a-f1-r02','building-a',1,'classroom',40),
+    ('building-a-f1-r03','building-a',1,'lab',20),
+    ('building-a-f1-r04','building-a',1,'office',10),
+    ('building-a-f1-r05','building-a',1,'office',10),
+    ('building-a-f1-r06','building-a',1,'corridor',0),
+    ('building-a-f2-r01','building-a',2,'classroom',40),
+    ('building-a-f2-r02','building-a',2,'classroom',40),
+    ('building-a-f2-r03','building-a',2,'lab',20),
+    ('building-a-f2-r04','building-a',2,'office',10),
+    ('building-a-f2-r05','building-a',2,'office',10),
+    ('building-a-f2-r06','building-a',2,'corridor',0),
+    ('building-a-f3-r01','building-a',3,'classroom',40),
+    ('building-a-f3-r02','building-a',3,'classroom',40),
+    ('building-a-f3-r03','building-a',3,'lab',20),
+    ('building-a-f3-r04','building-a',3,'office',10),
+    ('building-a-f3-r05','building-a',3,'office',10),
+    ('building-a-f3-r06','building-a',3,'corridor',0),
+    -- Building B: Administrative Block (3 floors × 4 rooms)
+    ('building-b-f1-r01','building-b',1,'office',15),
+    ('building-b-f1-r02','building-b',1,'office',15),
+    ('building-b-f1-r03','building-b',1,'office',20),
+    ('building-b-f1-r04','building-b',1,'corridor',0),
+    ('building-b-f2-r01','building-b',2,'office',15),
+    ('building-b-f2-r02','building-b',2,'office',15),
+    ('building-b-f2-r03','building-b',2,'office',20),
+    ('building-b-f2-r04','building-b',2,'corridor',0),
+    ('building-b-f3-r01','building-b',3,'office',15),
+    ('building-b-f3-r02','building-b',3,'office',15),
+    ('building-b-f3-r03','building-b',3,'office',20),
+    ('building-b-f3-r04','building-b',3,'corridor',0),
+    -- Building C: Research & Facilities (2 floors × 5 rooms)
+    ('building-c-f1-r01','building-c',1,'lab',15),
+    ('building-c-f1-r02','building-c',1,'lab',15),
+    ('building-c-f1-r03','building-c',1,'server_room',0),
+    ('building-c-f1-r04','building-c',1,'office',10),
+    ('building-c-f1-r05','building-c',1,'corridor',0),
+    ('building-c-f2-r01','building-c',2,'lab',15),
+    ('building-c-f2-r02','building-c',2,'lab',15),
+    ('building-c-f2-r03','building-c',2,'server_room',0),
+    ('building-c-f2-r04','building-c',2,'office',10),
+    ('building-c-f2-r05','building-c',2,'corridor',0),
+    -- Building D: Student Canteen (1 floor × 2 rooms)
+    ('building-d-f1-r01','building-d',1,'canteen',150),
+    ('building-d-f1-r02','building-d',1,'corridor',0)
 ON CONFLICT DO NOTHING;
