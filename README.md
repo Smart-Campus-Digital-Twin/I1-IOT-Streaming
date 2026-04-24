@@ -156,20 +156,6 @@ make pg-sensors
 make pg-alerts
 ```
 
-```sql
--- Sensors not seen in last 15 minutes (detect dead sensors)
-SELECT sensor_id, sensor_type, last_seen_at
-FROM sensors
-WHERE last_seen_at < NOW() - INTERVAL '15 minutes'
-ORDER BY last_seen_at;
-
--- Alert breakdown by type and severity
-SELECT alert_type, severity, sensor_type, COUNT(*) AS total
-FROM alert_events
-GROUP BY alert_type, severity, sensor_type
-ORDER BY total DESC;
-```
-
 ---
 
 ### Redis — Analytics Window State
@@ -251,35 +237,4 @@ smart-campus-digital-twin/
 └── .env
 ```
 
----
 
-## Environment Variables
-
-Copy `.env.example` to `.env` and change credentials before deploying.
-
-Key variables:
-
-| Variable | Default | Description |
-|---|---|---|
-| `CAMPUS_TIMEZONE` | `Asia/Colombo` | Lecture schedule timezone |
-| `PUBLISH_INTERVAL_S` | `5.0` | Seconds between sensor readings |
-| `ALERT_COOLDOWN_S` | `300` | Alert suppression window (seconds) |
-| `Z_SCORE_THRESHOLD` | `3.5` | Anomaly detection sensitivity |
-| `MQTT_USERNAME` | `campus-device` | MQTT broker credential |
-| `REDIS_PASSWORD` | — | Redis auth password |
-| `GRAFANA_PASSWORD` | — | Grafana admin password |
-
----
-
-## Storage
-
-| Volume | Grows? | Approx rate |
-|---|---|---|
-| `influxdb-data` | Yes | ~180 MB/day at 5s interval |
-| `postgres-data` | Minimal | ~70 MB stable |
-| `kafka-data` | Transient | Messages expire after 7 days |
-| `redis-data` | Minimal | ~160 keys, static size |
-
-```bash
-docker system df -v    # check volume disk usage
-```
