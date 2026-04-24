@@ -5,16 +5,21 @@ datasources:
     type: influxdb
     access: proxy
     url: http://influxdb:8086
+    isDefault: true
     jsonData:
       version: Flux
-      organization: smart-campus
-      defaultBucket: sensors
+      organization: ${INFLUXDB_ORG}
+      defaultBucket: ${INFLUXDB_BUCKET}
+      tlsSkipVerify: true
     secureJsonData:
-      token: my-super-secret-admin-token
-    isDefault: true
+      token: ${INFLUXDB_TOKEN}
+    editable: false
 
   - name: Prometheus
     type: prometheus
     access: proxy
     url: http://prometheus:9090
     isDefault: false
+    jsonData:
+      timeInterval: 15s
+    editable: false

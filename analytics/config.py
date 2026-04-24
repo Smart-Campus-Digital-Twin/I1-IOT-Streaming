@@ -18,6 +18,12 @@ class AnalyticsConfig:
     redis_port:     int = int(os.getenv("REDIS_PORT", "6379"))
     redis_password: str = os.getenv("REDIS_PASSWORD", "")
 
+    postgres_host:     str = os.getenv("POSTGRES_HOST",     "postgres")
+    postgres_port:     int = int(os.getenv("POSTGRES_PORT", "5432"))
+    postgres_db:       str = os.getenv("POSTGRES_DB",       "campus_metadata")
+    postgres_user:     str = os.getenv("POSTGRES_USER",     "campus_user")
+    postgres_password: str = os.getenv("POSTGRES_PASSWORD", "campus_password")
+
     log_level: str = os.getenv("LOG_LEVEL", "INFO")
 
 

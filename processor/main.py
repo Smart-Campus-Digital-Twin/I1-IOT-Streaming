@@ -26,6 +26,7 @@ from shared.models import SensorReading
 from processor.config import config
 from processor.writers.influx_writer import InfluxWriter
 from processor.writers.postgres_writer import PostgresWriter
+from processor.writers.hourly_aggregator import HourlyAggregator
 
 logger = get_logger("processor.main", config.log_level)
 
@@ -54,9 +55,14 @@ def _build_consumer() -> Consumer:
 def main() -> None:
     logger.info("Starting stream processor")
 
-    influx   = InfluxWriter()
-    postgres = PostgresWriter()
+    influx      = InfluxWriter()
+    postgres    = PostgresWriter()
     postgres.connect()
+    aggregator  = HourlyAggregator()
+    aggregator.connect()
+
+    _AGGREGATION_INTERVAL = 3600  # seconds
+    _last_aggregation     = time.time()
 
     consumer = _build_consumer()
     consumer.subscribe(SENSOR_TOPICS)
@@ -76,6 +82,14 @@ def main() -> None:
     uncommitted = 0
 
     while not stop:
+        # ── Hourly aggregation (runs regardless of message flow) ────────
+        if time.time() - _last_aggregation >= _AGGREGATION_INTERVAL:
+            try:
+                aggregator.run()
+            except Exception as exc:
+                logger.error(f"Hourly aggregation error: {exc}")
+            _last_aggregation = time.time()
+
         msg = consumer.poll(timeout=1.0)
 
         if msg is None:
@@ -123,6 +137,7 @@ def main() -> None:
     consumer.close()
     influx.close()
     postgres.close()
+    aggregator.close()
     logger.info("Processor stopped", extra={"processed": processed, "errors": errors})
 
 

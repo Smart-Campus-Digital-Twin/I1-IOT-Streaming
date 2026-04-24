@@ -24,6 +24,7 @@ from analytics.config import config
 from analytics.detectors.anomaly import ZScoreDetector
 from analytics.detectors.threshold import ThresholdDetector
 from analytics.suppressors.alert_suppressor import AlertSuppressor
+from analytics.writers.alert_writer import AlertWriter
 
 logger = get_logger("analytics.main", config.log_level)
 
@@ -75,10 +76,12 @@ def _make_alert(reading: SensorReading, alert_type: str, severity: str,
 def main() -> None:
     logger.info("Starting analytics engine", extra={"z_threshold": config.z_score_threshold})
 
-    consumer   = _build_consumer()
-    producer   = _build_producer()
-    threshold  = ThresholdDetector()
-    suppressor = AlertSuppressor(cooldown_s=config.alert_cooldown_s)
+    consumer     = _build_consumer()
+    producer     = _build_producer()
+    threshold    = ThresholdDetector()
+    suppressor   = AlertSuppressor(cooldown_s=config.alert_cooldown_s)
+    alert_writer = AlertWriter()
+    alert_writer.connect()
 
     # ZScoreDetector wired to Redis if available
     try:
@@ -144,6 +147,7 @@ def main() -> None:
                     key=reading.sensor_id.encode(),
                     value=alert.to_json().encode(),
                 )
+                alert_writer.insert_alert(alert)
                 logger.warning("Anomaly detected", extra={
                     "sensor_id":   reading.sensor_id,
                     "sensor_type": reading.sensor_type,
@@ -167,6 +171,7 @@ def main() -> None:
                     key=reading.sensor_id.encode(),
                     value=alert.to_json().encode(),
                 )
+                alert_writer.insert_alert(alert)
                 logger.warning("Threshold breach", extra={
                     "sensor_id":   reading.sensor_id,
                     "sensor_type": reading.sensor_type,
@@ -191,6 +196,7 @@ def main() -> None:
 
     consumer.close()
     producer.flush(timeout=10)
+    alert_writer.close()
     logger.info("Analytics engine stopped", extra={"processed": processed})
 
 
