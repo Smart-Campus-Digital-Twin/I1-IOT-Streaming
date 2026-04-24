@@ -1,0 +1,39 @@
+# Environment
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ML models
+predictor/models/*.pkl
+predictor/models/*.joblib
+predictor/models/*.onnx
+
+# Exported data
+*.csv
+*.json
+!.env.example
+
+# Jupyter
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# Docker
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp

@@ -1,0 +1,27 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # Kafka JMX metrics via kafka-exporter (add campus-kafka-exporter service to
+  # docker-compose when you need Kafka consumer-lag metrics in Grafana)
+  # - job_name: kafka
+  #   static_configs:
+  #     - targets: ["kafka-exporter:9308"]
+
+  # Python services expose /metrics on these ports once prometheus_client
+  # instrumentation is added to each service (see README for how-to):
+  # - job_name: campus-processor
+  #   static_configs:
+  #     - targets: ["campus-processor:8000"]
+  # - job_name: campus-analytics
+  #   static_configs:
+  #     - targets: ["campus-analytics:8001"]
+  # - job_name: campus-bridge
+  #   static_configs:
+  #     - targets: ["campus-bridge:8002"]
+
+  # Prometheus itself
+  - job_name: prometheus
+    static_configs:
+      - targets: ["localhost:9090"]
