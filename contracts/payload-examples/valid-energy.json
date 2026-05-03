@@ -1,0 +1,11 @@
+{
+  "sensor_id": "building-c-f1-r03-pressure",
+  "building_id": "building-c",
+  "floor": 1,
+  "room_id": "building-c-f1-r03",
+  "sensor_type": "pressure",
+  "value": 1001.2,
+  "unit": "hPa",
+  "timestamp_ms": 1746360010000,
+  "quality": 1.0
+}

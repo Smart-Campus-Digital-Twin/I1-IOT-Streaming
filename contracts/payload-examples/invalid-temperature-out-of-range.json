@@ -1,0 +1,11 @@
+{
+  "sensor_id": "building-a-f1-r01-temperature",
+  "building_id": "building-a",
+  "floor": 1,
+  "room_id": "building-a-f1-r01",
+  "sensor_type": "temperature",
+  "value": 45.5,
+  "unit": "celsius",
+  "timestamp_ms": 1746360000000,
+  "quality": 1.0
+}

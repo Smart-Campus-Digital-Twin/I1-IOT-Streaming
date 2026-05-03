@@ -1,0 +1,14 @@
+{
+  "sensor_id": "building-d-f1-r01-occupancy",
+  "building_id": "building-d",
+  "floor": 1,
+  "room_id": "building-d-f1-r01",
+  "sensor_type": "occupancy",
+  "value": 42.0,
+  "unit": "persons",
+  "timestamp_ms": 1746360005000,
+  "quality": 0.95,
+  "metadata": {
+    "firmware_version": "1.2.3"
+  }
+}
