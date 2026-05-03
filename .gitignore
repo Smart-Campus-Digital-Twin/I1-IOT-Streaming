@@ -22,6 +22,8 @@ predictor/models/*.onnx
 *.csv
 *.json
 !.env.example
+# Contract definitions should be versioned
+!contracts/**/*.json
 
 # Jupyter
 .ipynb_checkpoints/
