@@ -1,0 +1,196 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://campus-digital-twin.example/schemas/sensor-reading-v1.json",
+  "title": "Sensor Reading Payload",
+  "description": "A single sensor measurement from a campus IoT device, published to MQTT.",
+  "type": "object",
+  "required": [
+    "sensor_id",
+    "building_id",
+    "floor",
+    "room_id",
+    "sensor_type",
+    "value",
+    "unit",
+    "timestamp_ms"
+  ],
+  "properties": {
+    "sensor_id": {
+      "type": "string",
+      "description": "Stable, globally unique identifier for this sensor instance.",
+      "pattern": "^[a-z0-9\\-]+$",
+      "minLength": 5,
+      "maxLength": 100,
+      "examples": ["building-a-f1-r01-temperature", "building-c-f1-r03-vibration"]
+    },
+    "building_id": {
+      "type": "string",
+      "description": "Campus building identifier.",
+      "enum": ["building-a", "building-b", "building-c", "building-d"],
+      "examples": ["building-a", "building-d"]
+    },
+    "floor": {
+      "type": "integer",
+      "description": "Physical floor number (1-indexed).",
+      "minimum": 1,
+      "maximum": 10,
+      "examples": [1, 2, 3]
+    },
+    "room_id": {
+      "type": "string",
+      "description": "Unique room identifier in format building-fX-rNN.",
+      "pattern": "^building-[a-d]-f[0-9]+-r[0-9]{2}$",
+      "examples": ["building-a-f1-r01", "building-c-f1-r03", "building-d-f1-r01"]
+    },
+    "sensor_type": {
+      "type": "string",
+      "description": "Type of physical sensor being measured.",
+      "enum": ["temperature", "humidity", "pressure", "vibration", "occupancy"],
+      "examples": ["temperature", "occupancy"]
+    },
+    "value": {
+      "type": "number",
+      "description": "The measured value. Range depends on sensor_type.",
+      "examples": [22.5, 65.3, 1001.2, 0.8, 25.0]
+    },
+    "unit": {
+      "type": "string",
+      "description": "SI or common unit for the measurement. Must match sensor_type.",
+      "enum": ["celsius", "percent", "hPa", "mm/s", "persons"],
+      "examples": ["celsius", "persons"]
+    },
+    "timestamp_ms": {
+      "type": "integer",
+      "description": "UTC timestamp in milliseconds since Unix epoch (Jan 1, 1970, 00:00:00 UTC).",
+      "minimum": 0,
+      "examples": [1746360000000, 1746360005123]
+    },
+    "quality": {
+      "type": "number",
+      "description": "Data quality indicator. 1.0 = fully confident, 0.0 = failed/invalid.",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "default": 1.0,
+      "examples": [1.0, 0.8, 0.5]
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Optional flexible metadata (device firmware version, signal strength, etc.).",
+      "additionalProperties": {
+        "oneOf": [
+          { "type": "string" },
+          { "type": "number" },
+          { "type": "boolean" }
+        ]
+      },
+      "examples": [
+        {},
+        {
+          "firmware_version": "1.2.3",
+          "rssi_dbm": -65
+        }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "sensor_type": { "const": "temperature" } }
+      },
+      "then": {
+        "properties": {
+          "unit": { "const": "celsius" },
+          "value": {
+            "minimum": 15.0,
+            "maximum": 35.0,
+            "errorMessage": "temperature value must be 15–35°C"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "sensor_type": { "const": "humidity" } }
+      },
+      "then": {
+        "properties": {
+          "unit": { "const": "percent" },
+          "value": {
+            "minimum": 10.0,
+            "maximum": 100.0,
+            "errorMessage": "humidity value must be 10–100%"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "sensor_type": { "const": "pressure" } }
+      },
+      "then": {
+        "properties": {
+          "unit": { "const": "hPa" },
+          "value": {
+            "minimum": 980.0,
+            "maximum": 1050.0,
+            "errorMessage": "pressure value must be 980–1050 hPa"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "sensor_type": { "const": "vibration" } }
+      },
+      "then": {
+        "properties": {
+          "unit": { "const": "mm/s" },
+          "value": {
+            "minimum": 0.0,
+            "maximum": 20.0,
+            "errorMessage": "vibration value must be 0–20 mm/s"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "sensor_type": { "const": "occupancy" } }
+      },
+      "then": {
+        "properties": {
+          "unit": { "const": "persons" },
+          "value": {
+            "minimum": 0.0,
+            "maximum": 500.0,
+            "errorMessage": "occupancy value must be 0–500 persons"
+          }
+        }
+      }
+    }
+  ],
+  "examples": [
+    {
+      "sensor_id": "building-a-f1-r01-temperature",
+      "building_id": "building-a",
+      "floor": 1,
+      "room_id": "building-a-f1-r01",
+      "sensor_type": "temperature",
+      "value": 22.5,
+      "unit": "celsius",
+      "timestamp_ms": 1746360000000,
+      "quality": 1.0
+    },
+    {
+      "sensor_id": "building-d-f1-r01-occupancy",
+      "building_id": "building-d",
+      "floor": 1,
+      "room_id": "building-d-f1-r01",
+      "sensor_type": "occupancy",
+      "value": 45.0,
+      "unit": "persons",
+      "timestamp_ms": 1746360005000,
+      "quality": 0.95
+    }
+  ]
+}
