@@ -1,0 +1,49 @@
+# .graphifyignore - Exclude files from graphify knowledge graph extraction
+
+# Build artifacts
+node_modules/
+frontend/.next/
+frontend/dist/
+frontend/build/
+*.generated.py
+*.pyc
+__pycache__/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# IDE & editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment & secrets
+.env
+.env.local
+*.key
+*.pem
+
+# Git & version control
+.git/
+.gitignore
+
+# Tests
+pytest_cache/
+.pytest_cache/
+test_results/
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+
+# Logs
+*.log
+logs/
+
+# Docker
+docker-compose.override.yml
+*.log

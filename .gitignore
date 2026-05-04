@@ -37,3 +37,9 @@ notebooks/.ipynb_checkpoints/
 .vscode/
 .idea/
 *.swp
+
+# Graphify - knowledge graph outputs
+graphify-out/manifest.json       # mtime-based, breaks on git clone
+graphify-out/cost.json           # local API costs only
+# Uncomment below to skip cache (saves repo size)
+# graphify-out/cache/
