@@ -1,62 +1,58 @@
-<mxfile host="app.diagrams.net" modified="2026-05-03T12:00:00.000Z" agent="GitHub Copilot" version="24.7.17" editor="www.draw.io" type="device">
-  <diagram id="c1-context" name="C1 Context - Smart Campus DT">
-    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
-      <root>
-        <mxCell id="0" />
-        <mxCell id="1" parent="0" />
-
-        <mxCell id="title" value="Smart Campus Digital Twin - C1 Context (Phase 0)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=20;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="520" y="20" width="880" height="40" as="geometry" />
-        </mxCell>
-
-        <mxCell id="pillar1" value="Pillar 1: IoT / Edge&#xa;- ESP32 firmware&#xa;- Sensor acquisition&#xa;- MQTT publish / broker ops&#xa;- Topic + payload contract" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="730" y="380" width="460" height="220" as="geometry" />
-        </mxCell>
-
-        <mxCell id="pillar2" value="Pillar 2: Data &amp; AI&#xa;- Kafka&#xa;- Spark processing&#xa;- MLflow&#xa;- PostgreSQL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry x="220" y="160" width="320" height="180" as="geometry" />
-        </mxCell>
-
-        <mxCell id="pillar3" value="Pillar 3: Frontend / Twin UX&#xa;- Next.js&#xa;- Three.js&#xa;- Socket.IO" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry x="1370" y="160" width="320" height="180" as="geometry" />
-        </mxCell>
-
-        <mxCell id="pillar4" value="Pillar 4: Platform / Ops&#xa;- Docker&#xa;- Kubernetes&#xa;- Kong&#xa;- Keycloak&#xa;- Prometheus" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;" vertex="1" parent="1">
-          <mxGeometry x="220" y="700" width="320" height="200" as="geometry" />
-        </mxCell>
-
-        <mxCell id="actor_ops" value="Operators / Developers" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" vertex="1" parent="1">
-          <mxGeometry x="1460" y="730" width="80" height="120" as="geometry" />
-        </mxCell>
-
-        <mxCell id="boundary" value="System of Interest: Smart Campus Digital Twin" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;fillColor=none;strokeColor=#666666;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="150" y="90" width="1600" height="860" as="geometry" />
-        </mxCell>
-
-        <mxCell id="edge_note" value="External interface owned by Pillar 1:&#xa;MQTT topic taxonomy + JSON payload schema" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
-          <mxGeometry x="760" y="620" width="400" height="90" as="geometry" />
-        </mxCell>
-
-        <mxCell id="e12" value="MQTT telemetry stream" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" source="pillar1" target="pillar2" parent="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-
-        <mxCell id="e23" value="Processed data / events" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" source="pillar2" target="pillar3" parent="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-
-        <mxCell id="e41" value="Security, deployment, monitoring controls" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" source="pillar4" target="pillar1" parent="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-
-        <mxCell id="e43" value="Platform services / auth / observability" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" source="pillar4" target="pillar3" parent="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-
-        <mxCell id="eops" value="Operate + troubleshoot" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" edge="1" source="actor_ops" target="pillar4" parent="1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-      </root>
-    </mxGraphModel>
-  </diagram>
+<mxfile host="65bd71144e">
+    <diagram id="c1-context" name="C1 Context - Smart Campus DT">
+        <mxGraphModel dx="871" dy="775" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="title" value="Smart Campus Digital Twin - C1 Context (Phase 0)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=20;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="20" width="880" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="pillar1" value="Pillar 1: IoT / Edge&#xa;- ESP32 firmware&#xa;- Sensor acquisition&#xa;- MQTT publish / broker ops&#xa;- Topic + payload contract" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="730" y="380" width="460" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="pillar2" value="Pillar 2: Data &amp; AI&#xa;- Kafka&#xa;- Spark processing&#xa;- MLflow&#xa;- PostgreSQL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="220" y="160" width="320" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="pillar3" value="Pillar 3: Frontend / Twin UX&#xa;- Next.js&#xa;- Three.js&#xa;- Socket.IO" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="1370" y="160" width="320" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="pillar4" value="Pillar 4: Platform / Ops&#xa;- Docker&#xa;- Kubernetes&#xa;- Kong&#xa;- Keycloak&#xa;- Prometheus" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;" parent="1" vertex="1">
+                    <mxGeometry x="220" y="700" width="320" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="actor_ops" value="Operators / Developers" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="1460" y="730" width="80" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="boundary" value="System of Interest: Smart Campus Digital Twin" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;dashPattern=8 8;fillColor=none;strokeColor=#666666;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="150" y="120" width="1600" height="860" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge_note" value="External interface owned by Pillar 1:&#xa;MQTT topic taxonomy + JSON payload schema" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="760" y="620" width="400" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="e12" value="MQTT telemetry stream" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" source="pillar1" target="pillar2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e23" value="Processed data / events" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" source="pillar2" target="pillar3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e41" value="Security, deployment, monitoring controls" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" source="pillar4" target="pillar1" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e43" value="Platform services / auth / observability" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" source="pillar4" target="pillar3" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1530" y="780"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="eops" value="Operate + troubleshoot" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;" parent="1" source="actor_ops" target="pillar4" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1000" y="790"/>
+                            <mxPoint x="1000" y="810"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
 </mxfile>
