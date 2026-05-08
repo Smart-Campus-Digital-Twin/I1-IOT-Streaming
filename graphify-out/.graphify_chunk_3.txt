@@ -1,0 +1,8 @@
+C:\Users\User\Documents\dev projects\SEP\I1-IOT-Streaming\docs\glossary.md
+C:\Users\User\Documents\dev projects\SEP\I1-IOT-Streaming\docs\learning-notes-phase-0.md
+C:\Users\User\Documents\dev projects\SEP\I1-IOT-Streaming\infra\grafana\provisioning\datasources\datasources.yaml
+C:\Users\User\Documents\dev projects\SEP\I1-IOT-Streaming\infra\mosquitto\README.md
+C:\Users\User\Documents\dev projects\SEP\I1-IOT-Streaming\infra\prometheus\prometheus.yml
+C:\Users\User\Documents\dev projects\SEP\I1-IOT-Streaming\ingestion\requirements.txt
+C:\Users\User\Documents\dev projects\SEP\I1-IOT-Streaming\processor\requirements.txt
+C:\Users\User\Documents\dev projects\SEP\I1-IOT-Streaming\simulator\requirements.txt
