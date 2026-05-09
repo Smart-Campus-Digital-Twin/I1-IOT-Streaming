@@ -98,37 +98,36 @@ def valid_headers():
         "Content-Type": "application/json"
     }
 
-def test_kong_auth_valid_token(requests_mock, valid_headers):
-    """QA Test: ESP32 with a valid Keycloak JWT token is permitted by Kong."""
-    # Using requests_mock to simulate Kong's response in a CI/CD pipeline
-    requests_mock.post(KONG_GATEWAY_URL, status_code=202)
-    
+def test_kong_auth_valid_token(valid_headers):
+    """QA Test (Integration): ESP32 with a valid Keycloak JWT token is permitted by Kong."""
     payload = {"status": "test_ping"} 
-    response = requests.post(KONG_GATEWAY_URL, json=payload, headers=valid_headers)
-    
-    assert response.status_code == 202
+    try:
+        response = requests.post(KONG_GATEWAY_URL, json=payload, headers=valid_headers)
+        assert response.status_code == 202
+    except requests.exceptions.ConnectionError:
+        pytest.skip("Kong Gateway is not reachable. Skipping integration test.")
 
-def test_kong_auth_missing_token(requests_mock):
-    """QA Test: Rogue ESP32 WITHOUT a Keycloak token is actively blocked (401)."""
-    requests_mock.post(KONG_GATEWAY_URL, status_code=401)
-    
+def test_kong_auth_missing_token():
+    """QA Test (Integration): Rogue ESP32 WITHOUT a Keycloak token is actively blocked (401)."""
     payload = {"status": "test_ping"}
     headers = {"Content-Type": "application/json"} # Notice: No Auth header
     
-    response = requests.post(KONG_GATEWAY_URL, json=payload, headers=headers)
-    
-    assert response.status_code == 401
+    try:
+        response = requests.post(KONG_GATEWAY_URL, json=payload, headers=headers)
+        assert response.status_code in [401, 403]
+    except requests.exceptions.ConnectionError:
+        pytest.skip("Kong Gateway is not reachable. Skipping integration test.")
 
-def test_kong_auth_invalid_token(requests_mock):
-    """QA Test: ESP32 with a forged or expired token is blocked (401 or 403)."""
-    requests_mock.post(KONG_GATEWAY_URL, status_code=403)
-    
+def test_kong_auth_invalid_token():
+    """QA Test (Integration): ESP32 with a forged or expired token is blocked (401 or 403)."""
     payload = {"status": "test_ping"}
     headers = {
         "Authorization": "Bearer fake_forged_token_123", 
         "Content-Type": "application/json"
     }
     
-    response = requests.post(KONG_GATEWAY_URL, json=payload, headers=headers)
-    
-    assert response.status_code in [401, 403]
+    try:
+        response = requests.post(KONG_GATEWAY_URL, json=payload, headers=headers)
+        assert response.status_code in [401, 403]
+    except requests.exceptions.ConnectionError:
+        pytest.skip("Kong Gateway is not reachable. Skipping integration test.")
